@@ -95,23 +95,55 @@ function AuthPage() {
           <h1 className="font-display mt-2 text-3xl font-bold tracking-tight">{mode === "signin" ? "Sign in" : "Join the workspace"}</h1>
 
           {/* Instant One-Click Login */}
-          <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-3">
+          <div className="mt-6 rounded-md border border-primary/20 bg-primary/5 p-3.5 space-y-2.5">
             <div className="flex items-center gap-1.5 font-mono text-[11px] font-medium uppercase tracking-wider text-primary">
-              <Sparkles className="size-3.5" /> Instant Workspace Access
+              <Sparkles className="size-3.5" /> Instant Role Access
             </div>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Pre-configured administrator account connected to MongoDB Atlas.
+            <p className="text-xs text-muted-foreground">
+              Select any role to test dashboard views and operational permissions:
             </p>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className="mt-2.5 w-full border-primary/30 text-xs font-medium hover:bg-primary/10"
-              disabled={busy}
-              onClick={() => quickLogin("admin@kraft.edu", "Admin@123456")}
-            >
-              Sign in as Super Administrator
-            </Button>
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="border-primary/30 text-xs font-mono font-medium hover:bg-primary/10 h-8"
+                disabled={busy}
+                onClick={() => quickLogin("admin@kraft.edu", "Admin@123456")}
+              >
+                Super Admin
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="border-primary/30 text-xs font-mono font-medium hover:bg-primary/10 h-8"
+                disabled={busy}
+                onClick={() => quickLogin("director@kraft.edu", "Admin@123456")}
+              >
+                Director
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="border-primary/30 text-xs font-mono font-medium hover:bg-primary/10 h-8"
+                disabled={busy}
+                onClick={() => quickLogin("counsellor@kraft.edu", "Admin@123456")}
+              >
+                Counsellor
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="border-primary/30 text-xs font-mono font-medium hover:bg-primary/10 h-8"
+                disabled={busy}
+                onClick={() => quickLogin("mentor@kraft.edu", "Admin@123456")}
+              >
+                Academic Mentor
+              </Button>
+            </div>
           </div>
 
           <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
