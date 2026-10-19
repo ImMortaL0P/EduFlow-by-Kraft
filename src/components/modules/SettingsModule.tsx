@@ -129,8 +129,8 @@ export function SettingsModule() {
           </div>
           <div className="flex items-center justify-between py-2.5">
             <div>
-              <div className="font-medium">Lovable Cloud Decoupling</div>
-              <div className="text-xs text-muted-foreground">Pure independent Vite / TanStack Start / Node / Mongo runtime</div>
+              <div className="font-medium">Independent Cloud Architecture</div>
+              <div className="text-xs text-muted-foreground">Pure independent Vite / TanStack Start / Node / MongoDB Atlas runtime</div>
             </div>
             <Tag tone="success">100% Independent</Tag>
           </div>
