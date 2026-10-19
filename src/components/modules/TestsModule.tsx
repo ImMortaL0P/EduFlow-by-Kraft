@@ -94,7 +94,13 @@ export function TestsModule() {
         const qr = Number(gmatQr) || 0;
         const vr = Number(gmatVr) || 0;
         const di = Number(gmatDi) || 0;
-        totalScore = 205 + (qr + vr + di) * 10;
+        const sumSec = qr + vr + di;
+        totalScore =
+          testType === "Sectional"
+            ? qr || vr || di
+            : sumSec >= 180
+            ? Math.min(805, Math.max(205, Math.round((205 + ((sumSec - 180) * 600) / 90) / 10) * 10))
+            : sumSec;
         breakdown = { qr, vr, di };
       }
 
@@ -203,7 +209,15 @@ export function TestsModule() {
 
       let total = scoreIdx >= 0 && cleanVals[scoreIdx] ? Number(cleanVals[scoreIdx]) : 0;
       if (!total) {
-        total = exam === "CAT" ? sec1 + sec2 + sec3 : 205 + (sec1 + sec2 + sec3) * 10;
+        const sumSec = sec1 + sec2 + sec3;
+        total =
+          exam === "CAT"
+            ? sumSec
+            : testType === "Sectional"
+            ? sec1 || sec2 || sec3
+            : sumSec >= 180
+            ? Math.min(805, Math.max(205, Math.round((205 + ((sumSec - 180) * 600) / 90) / 10) * 10))
+            : sumSec;
       }
 
       const percentile = pctIdx >= 0 ? cleanVals[pctIdx] : "";
