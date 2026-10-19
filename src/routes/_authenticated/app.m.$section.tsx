@@ -14,7 +14,11 @@ import { SettingsModule } from "@/components/modules/SettingsModule";
 
 export const Route = createFileRoute("/_authenticated/app/m/$section")({
   head: ({ params }) => {
-    const item = NAV.find((n) => n.key === params.section);
+    const item =
+      NAV.find((n) => n.key === params.section) ||
+      (params.section.includes("mock") || params.section.includes("test") || params.section.includes("performance")
+        ? { label: "Tests & Performance" }
+        : undefined);
     return {
       meta: [{ title: `${item?.label || "Module"} — KRAFT Student Journey Manager` }],
     };
@@ -31,6 +35,11 @@ function ModuleRouter() {
     case "academics":
       return <AcademicsModule />;
     case "tests":
+    case "mock-tests":
+    case "mock-test":
+    case "performance":
+    case "mock-performance":
+    case "mocks":
       return <TestsModule />;
     case "attendance":
       return <AttendanceModule />;

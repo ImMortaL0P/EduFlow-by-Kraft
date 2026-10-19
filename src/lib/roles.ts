@@ -29,7 +29,7 @@ export const SECTION_ACCESS: Record<string, AppRole[]> = {
   counselling: [...LEAD, "counsellor", "mentor", "academic_manager"],
   courses: [...LEAD, "academic_manager", "faculty"],
   academics: [...LEAD, "academic_manager", "faculty"],
-  tests: [...LEAD, "academic_manager", "faculty", "mentor", "student"],
+  tests: ALL_ROLES,
   attendance: [...LEAD, "academic_manager", "faculty", "mentor"],
   tasks: STAFF,
   readiness: [...LEAD, "academic_manager", "mentor", "student"],

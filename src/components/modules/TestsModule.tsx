@@ -328,10 +328,10 @@ export function TestsModule() {
 
   // Filter mock attempts
   const filteredAttempts = mockAttempts.filter((a: any) => {
+    if (!a) return false;
     const matchesType = filterType === "ALL" ? true : a.test_type === filterType;
-    const matchesQ =
-      !q ||
-      `${a.student_name} ${a.test_name} ${a.percentile || ""}`.toLowerCase().includes(q.toLowerCase());
+    const searchTarget = `${a.student_name || a.students?.full_name || ""} ${a.test_name || ""} ${a.percentile || ""}`.toLowerCase();
+    const matchesQ = !q || searchTarget.includes(q.toLowerCase());
     return matchesType && matchesQ;
   });
 
@@ -339,13 +339,13 @@ export function TestsModule() {
   const avgScore =
     mockAttempts.length > 0
       ? Math.round(
-          mockAttempts.reduce((acc: number, m: any) => acc + (m.total_score || 0), 0) /
+          mockAttempts.reduce((acc: number, m: any) => acc + (Number(m.total_score) || 0), 0) /
             mockAttempts.length
         )
       : 0;
 
   const highestScore = mockAttempts.reduce(
-    (max: number, m: any) => Math.max(max, m.total_score || 0),
+    (max: number, m: any) => Math.max(max, Number(m.total_score) || 0),
     0
   );
 
@@ -787,50 +787,60 @@ export function TestsModule() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-rule/60">
-                {filteredAttempts.map((attempt: any) => (
-                  <tr key={attempt.id} className="hover:bg-muted/30 transition-colors">
-                    <td className="py-3">
-                      <div className="font-semibold text-foreground">{attempt.student_name}</div>
-                      <div className="text-xs text-muted-foreground font-mono">{attempt.remarks || "Regular series"}</div>
-                    </td>
-                    <td className="py-3 font-medium text-xs text-foreground">
-                      {attempt.test_name}
-                    </td>
-                    <td className="py-3">
-                      <Tag tone={attempt.test_type === "Full Mock" ? "primary" : "muted"}>
-                        {attempt.test_type || "Full Mock"}
-                      </Tag>
-                    </td>
-                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                      {fmtDate(attempt.attempt_date || attempt.created_at)}
-                    </td>
-                    <td className="py-3 font-mono text-xs text-muted-foreground">
-                      {activeExam === "CAT" ? (
-                        <span>
-                          VARC: <strong className="text-foreground">{attempt.breakdown?.varc ?? 0}</strong> · DILR:{" "}
-                          <strong className="text-foreground">{attempt.breakdown?.dilr ?? 0}</strong> · QA:{" "}
-                          <strong className="text-foreground">{attempt.breakdown?.qa ?? 0}</strong>
+                {filteredAttempts.map((attempt: any, idx: number) => {
+                  const bd =
+                    typeof attempt.breakdown === "string"
+                      ? JSON.parse(attempt.breakdown || "{}")
+                      : attempt.breakdown || {};
+                  const studentName = attempt.student_name || attempt.students?.full_name || "Enrolled Student";
+                  return (
+                    <tr
+                      key={attempt.id || attempt._id || `${studentName}-${attempt.test_name}-${idx}`}
+                      className="hover:bg-muted/30 transition-colors"
+                    >
+                      <td className="py-3">
+                        <div className="font-semibold text-foreground">{studentName}</div>
+                        <div className="text-xs text-muted-foreground font-mono">{attempt.remarks || "Regular series"}</div>
+                      </td>
+                      <td className="py-3 font-medium text-xs text-foreground">
+                        {attempt.test_name}
+                      </td>
+                      <td className="py-3">
+                        <Tag tone={attempt.test_type === "Full Mock" ? "primary" : "muted"}>
+                          {attempt.test_type || "Full Mock"}
+                        </Tag>
+                      </td>
+                      <td className="py-3 font-mono text-xs text-muted-foreground">
+                        {fmtDate(attempt.attempt_date || attempt.created_at)}
+                      </td>
+                      <td className="py-3 font-mono text-xs text-muted-foreground">
+                        {activeExam === "CAT" ? (
+                          <span>
+                            VARC: <strong className="text-foreground">{bd.varc ?? 0}</strong> · DILR:{" "}
+                            <strong className="text-foreground">{bd.dilr ?? 0}</strong> · QA:{" "}
+                            <strong className="text-foreground">{bd.qa ?? 0}</strong>
+                          </span>
+                        ) : (
+                          <span>
+                            QR: <strong className="text-foreground">{bd.qr ?? 0}</strong> · VR:{" "}
+                            <strong className="text-foreground">{bd.vr ?? 0}</strong> · DI:{" "}
+                            <strong className="text-foreground">{bd.di ?? 0}</strong>
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 text-right">
+                        <span className="font-mono font-bold text-primary text-base">
+                          {attempt.total_score} {activeExam === "CAT" ? "Marks" : ""}
                         </span>
-                      ) : (
-                        <span>
-                          QR: <strong className="text-foreground">{attempt.breakdown?.qr ?? 0}</strong> · VR:{" "}
-                          <strong className="text-foreground">{attempt.breakdown?.vr ?? 0}</strong> · DI:{" "}
-                          <strong className="text-foreground">{attempt.breakdown?.di ?? 0}</strong>
-                        </span>
-                      )}
-                    </td>
-                    <td className="py-3 text-right">
-                      <span className="font-mono font-bold text-primary text-base">
-                        {attempt.total_score} {activeExam === "CAT" ? "Marks" : ""}
-                      </span>
-                      {attempt.percentile && (
-                        <div className="text-[11px] font-mono text-success font-semibold">
-                          {attempt.percentile}
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                        {attempt.percentile && (
+                          <div className="text-[11px] font-mono text-success font-semibold">
+                            {attempt.percentile}
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

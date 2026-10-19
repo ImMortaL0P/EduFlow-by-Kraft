@@ -17,8 +17,10 @@ import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAppCounsellingRouteImport } from './routes/_authenticated/app.counselling'
 import { Route as AuthenticatedAppJourneyRouteImport } from './routes/_authenticated/app.journey'
 import { Route as AuthenticatedAppLeadsRouteImport } from './routes/_authenticated/app.leads'
+import { Route as AuthenticatedAppMockTestsRouteImport } from './routes/_authenticated/app.mock-tests'
 import { Route as AuthenticatedAppTasksRouteImport } from './routes/_authenticated/app.tasks'
 import { Route as AuthenticatedAppTeamRouteImport } from './routes/_authenticated/app.team'
+import { Route as AuthenticatedAppTestsRouteImport } from './routes/_authenticated/app.tests'
 import { Route as AuthenticatedAppMSectionRouteImport } from './routes/_authenticated/app.m.$section'
 import { Route as AuthenticatedAppStudentsIndexRouteImport } from './routes/_authenticated/app.students.index'
 import { Route as AuthenticatedAppStudentsIdRouteImport } from './routes/_authenticated/app.students.$id'
@@ -63,6 +65,12 @@ const AuthenticatedAppLeadsRoute = AuthenticatedAppLeadsRouteImport.update({
   path: '/leads',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppMockTestsRoute =
+  AuthenticatedAppMockTestsRouteImport.update({
+    id: '/mock-tests',
+    path: '/mock-tests',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppTasksRoute = AuthenticatedAppTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
@@ -71,6 +79,11 @@ const AuthenticatedAppTasksRoute = AuthenticatedAppTasksRouteImport.update({
 const AuthenticatedAppTeamRoute = AuthenticatedAppTeamRouteImport.update({
   id: '/team',
   path: '/team',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppTestsRoute = AuthenticatedAppTestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
 const AuthenticatedAppMSectionRoute =
@@ -99,8 +112,10 @@ export interface FileRoutesByFullPath {
   '/app/counselling': typeof AuthenticatedAppCounsellingRoute
   '/app/journey': typeof AuthenticatedAppJourneyRoute
   '/app/leads': typeof AuthenticatedAppLeadsRoute
+  '/app/mock-tests': typeof AuthenticatedAppMockTestsRoute
   '/app/tasks': typeof AuthenticatedAppTasksRoute
   '/app/team': typeof AuthenticatedAppTeamRoute
+  '/app/tests': typeof AuthenticatedAppTestsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/m/$section': typeof AuthenticatedAppMSectionRoute
   '/app/students/$id': typeof AuthenticatedAppStudentsIdRoute
@@ -112,8 +127,10 @@ export interface FileRoutesByTo {
   '/app/counselling': typeof AuthenticatedAppCounsellingRoute
   '/app/journey': typeof AuthenticatedAppJourneyRoute
   '/app/leads': typeof AuthenticatedAppLeadsRoute
+  '/app/mock-tests': typeof AuthenticatedAppMockTestsRoute
   '/app/tasks': typeof AuthenticatedAppTasksRoute
   '/app/team': typeof AuthenticatedAppTeamRoute
+  '/app/tests': typeof AuthenticatedAppTestsRoute
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/m/$section': typeof AuthenticatedAppMSectionRoute
   '/app/students/$id': typeof AuthenticatedAppStudentsIdRoute
@@ -128,8 +145,10 @@ export interface FileRoutesById {
   '/_authenticated/app/counselling': typeof AuthenticatedAppCounsellingRoute
   '/_authenticated/app/journey': typeof AuthenticatedAppJourneyRoute
   '/_authenticated/app/leads': typeof AuthenticatedAppLeadsRoute
+  '/_authenticated/app/mock-tests': typeof AuthenticatedAppMockTestsRoute
   '/_authenticated/app/tasks': typeof AuthenticatedAppTasksRoute
   '/_authenticated/app/team': typeof AuthenticatedAppTeamRoute
+  '/_authenticated/app/tests': typeof AuthenticatedAppTestsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/m/$section': typeof AuthenticatedAppMSectionRoute
   '/_authenticated/app/students/$id': typeof AuthenticatedAppStudentsIdRoute
@@ -144,8 +163,10 @@ export interface FileRouteTypes {
     | '/app/counselling'
     | '/app/journey'
     | '/app/leads'
+    | '/app/mock-tests'
     | '/app/tasks'
     | '/app/team'
+    | '/app/tests'
     | '/app/'
     | '/app/m/$section'
     | '/app/students/$id'
@@ -157,8 +178,10 @@ export interface FileRouteTypes {
     | '/app/counselling'
     | '/app/journey'
     | '/app/leads'
+    | '/app/mock-tests'
     | '/app/tasks'
     | '/app/team'
+    | '/app/tests'
     | '/app'
     | '/app/m/$section'
     | '/app/students/$id'
@@ -172,8 +195,10 @@ export interface FileRouteTypes {
     | '/_authenticated/app/counselling'
     | '/_authenticated/app/journey'
     | '/_authenticated/app/leads'
+    | '/_authenticated/app/mock-tests'
     | '/_authenticated/app/tasks'
     | '/_authenticated/app/team'
+    | '/_authenticated/app/tests'
     | '/_authenticated/app/'
     | '/_authenticated/app/m/$section'
     | '/_authenticated/app/students/$id'
@@ -244,6 +269,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppLeadsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/mock-tests': {
+      id: '/_authenticated/app/mock-tests'
+      path: '/mock-tests'
+      fullPath: '/app/mock-tests'
+      preLoaderRoute: typeof AuthenticatedAppMockTestsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/tasks': {
       id: '/_authenticated/app/tasks'
       path: '/tasks'
@@ -256,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/app/team'
       preLoaderRoute: typeof AuthenticatedAppTeamRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/tests': {
+      id: '/_authenticated/app/tests'
+      path: '/tests'
+      fullPath: '/app/tests'
+      preLoaderRoute: typeof AuthenticatedAppTestsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/m/$section': {
@@ -286,8 +325,10 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppCounsellingRoute: typeof AuthenticatedAppCounsellingRoute
   AuthenticatedAppJourneyRoute: typeof AuthenticatedAppJourneyRoute
   AuthenticatedAppLeadsRoute: typeof AuthenticatedAppLeadsRoute
+  AuthenticatedAppMockTestsRoute: typeof AuthenticatedAppMockTestsRoute
   AuthenticatedAppTasksRoute: typeof AuthenticatedAppTasksRoute
   AuthenticatedAppTeamRoute: typeof AuthenticatedAppTeamRoute
+  AuthenticatedAppTestsRoute: typeof AuthenticatedAppTestsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppMSectionRoute: typeof AuthenticatedAppMSectionRoute
   AuthenticatedAppStudentsIdRoute: typeof AuthenticatedAppStudentsIdRoute
@@ -298,8 +339,10 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppCounsellingRoute: AuthenticatedAppCounsellingRoute,
   AuthenticatedAppJourneyRoute: AuthenticatedAppJourneyRoute,
   AuthenticatedAppLeadsRoute: AuthenticatedAppLeadsRoute,
+  AuthenticatedAppMockTestsRoute: AuthenticatedAppMockTestsRoute,
   AuthenticatedAppTasksRoute: AuthenticatedAppTasksRoute,
   AuthenticatedAppTeamRoute: AuthenticatedAppTeamRoute,
+  AuthenticatedAppTestsRoute: AuthenticatedAppTestsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppMSectionRoute: AuthenticatedAppMSectionRoute,
   AuthenticatedAppStudentsIdRoute: AuthenticatedAppStudentsIdRoute,

@@ -352,6 +352,25 @@ async function populateRelations(db: any, collection: string, items: any[]): Pro
     }));
   }
 
+  if (collection === "test_attempts") {
+    const studentIds = [...new Set(items.map((t) => t.student_id).filter(Boolean))];
+    if (studentIds.length > 0) {
+      const students = await db
+        .collection("students")
+        .find({ id: { $in: studentIds } }, { projection: { _id: 0 } })
+        .toArray();
+      const studentMap = new Map(students.map((s: any) => [s.id, s]));
+      return items.map((t) => {
+        const student = studentMap.get(t.student_id);
+        return {
+          ...t,
+          student_name: t.student_name || student?.full_name || "Enrolled Student",
+          students: student || null,
+        };
+      });
+    }
+  }
+
   return items;
 }
 
