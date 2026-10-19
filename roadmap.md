@@ -1,0 +1,7 @@
+- [x] Provide demo login credentials
+- [x] Phase 1-2: foundation, CRM, journeys
+- [ ] Phase 3: courses, batches, attendance, study plans
+- [ ] Phase 4: tests & mock analytics, risk
+- [ ] Phase 5: fees, readiness, B-school applications
+- [ ] Phase 6: analytics, automations, notifications
+- [ ] Phase 7: security review & acceptance tests
