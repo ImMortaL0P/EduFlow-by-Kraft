@@ -139,7 +139,7 @@ function StudentsPage() {
                       {s.enrolments?.[0]?.courses?.name ?? (s.exam === "CAT" ? "CAT Comprehensive Classroom" : "GMAT Focus Intensive")}
                     </td>
                     <td className="py-3 font-mono text-xs tabular font-medium text-foreground">
-                      {s.target_score || (s.exam === "CAT" ? "99 %ile" : "705+")}
+                      {s.target_score ? `Target: ${s.target_score}` : (s.exam === "CAT" ? "Target: 99.5 %ile" : "Target: 715+")}
                     </td>
                     <td className="py-3 text-right tabular font-mono text-xs text-muted-foreground">
                       {fmtDate(s.planned_exam_date)}

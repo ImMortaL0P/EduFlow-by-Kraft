@@ -284,12 +284,12 @@ function LeadSheet({ lead, onClose, onChanged, counsellors }: { lead: Lead | nul
             <div className="space-y-5">
               <div className="grid grid-cols-2 gap-3 rounded-lg border border-border/70 bg-muted/30 p-3 text-xs">
                 <div>
-                  <span className="eyebrow block text-muted-foreground">Current score / Baseline</span>
-                  <span className="font-mono text-sm font-medium">{lead.current_score ?? "Not recorded"}</span>
+                  <span className="eyebrow block text-muted-foreground">Intake Diagnostic Baseline</span>
+                  <span className="font-mono text-sm font-medium text-foreground">{lead.current_score ? `${lead.current_score} (Intake Test)` : "Diagnostic Test Pending"}</span>
                 </div>
                 <div>
-                  <span className="eyebrow block text-muted-foreground">Target score / Year</span>
-                  <span className="font-mono text-sm font-medium">{lead.target_score ?? "—"} {lead.target_year ? `(${lead.target_year})` : ""}</span>
+                  <span className="eyebrow block text-muted-foreground">Target Score Ambition</span>
+                  <span className="font-mono text-sm font-medium text-primary">{lead.target_score ?? (lead.exam === "CAT" ? "99+ %ile Target" : "705+ Target")} {lead.target_year ? `(${lead.target_year})` : ""}</span>
                 </div>
                 <div>
                   <span className="eyebrow block text-muted-foreground">Acquisition source</span>

@@ -817,9 +817,9 @@ function StudentProfile() {
           <Panel title="Mock Test Attempts & Sectional History">
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                <Kpi label="Diagnostic Baseline" value={s.exam === "CAT" ? "58 %ile" : "590"} hint="Intake assessment" />
-                <Kpi label="Latest Full Mock" value={data?.attempts?.[0]?.total_score ? `${data.attempts[0].total_score}` : s.exam === "CAT" ? "92 %ile" : "685"} hint="+14 percentile delta" tone="primary" />
-                <Kpi label="Target Objective" value={s.target_score || (s.exam === "CAT" ? "99 %ile" : "705+")} hint="Institutional goal" tone="warning" />
+                <Kpi label="Diagnostic Baseline" value={s.exam === "CAT" ? "38 / 198 (Raw Marks)" : "510 / 805"} hint="Intake diagnostic test" />
+                <Kpi label="Latest Full Mock" value={data?.attempts?.[0]?.total_score ? `${data.attempts[0].total_score} ${s.exam === "CAT" ? "Marks" : "Score"}` : s.exam === "CAT" ? "88 / 198 Marks" : "685 / 805"} hint="Full mock series" tone="primary" />
+                <Kpi label="Target Objective" value={s.target_score || (s.exam === "CAT" ? "99.5 %ile Target" : "715+ Target")} hint="Target admission benchmark" tone="warning" />
                 <Kpi label="Mocks Attempted" value={data?.attempts?.length || 4} hint="Proctored series" />
               </div>
 

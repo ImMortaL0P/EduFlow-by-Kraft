@@ -201,7 +201,7 @@ function JourneyBoard() {
                           <span className="flex items-center gap-1 font-mono text-[10px]">
                             <MapPin className="size-3 text-muted-foreground/70" /> {c.city || "Delhi"}
                           </span>
-                          <Tag tone="muted">{c.target_score || "99 %ile"}</Tag>
+                          <Tag tone="muted">{c.target_score ? `Target: ${c.target_score}` : (c.exam === "CAT" ? "Target: 99.5 %ile" : "Target: 715+")}</Tag>
                         </div>
 
                         {c.planned_exam_date && (
