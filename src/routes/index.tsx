@@ -119,75 +119,118 @@ function Landing() {
         </div>
 
         {/* Dual Track Architecture Feature */}
-        <div className="mt-20 grid gap-8 md:grid-cols-2">
-          {/* CAT Box */}
-          <div className="kraft-card rounded-md border border-rule bg-card p-8 space-y-5">
-            <div className="flex items-center justify-between">
-              <ExamTag exam="CAT" />
-              <span className="font-mono text-xs text-muted-foreground">Target Exam: Nov 2026</span>
+        <div className="mt-20">
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span className="eyebrow">Dual Examination Engine</span>
+              <h2 className="font-display text-3xl font-bold tracking-tight mt-1">CAT & GMAT Track Specializations</h2>
             </div>
-            <h3 className="font-display text-2xl font-bold tracking-tight">Common Admission Test (CAT)</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Full lifecycle tracking for Indian IIMs, FMS, SPJIMR, and MDI aspirants. Rigorous section-level analytics across VARC, DILR, and Quantitative Aptitude with raw score to percentile benchmark projections.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Chip>VARC (24 Qs)</Chip>
-              <Chip>DILR (20 Qs)</Chip>
-              <Chip>QA (22 Qs)</Chip>
-              <Chip>198 Raw Marks Scale</Chip>
-            </div>
+            <span className="font-mono text-xs text-muted-foreground">Tailored scoring models & separate pipelines</span>
           </div>
 
-          {/* GMAT Box */}
-          <div className="kraft-card rounded-md border border-rule bg-card p-8 space-y-5">
-            <div className="flex items-center justify-between">
-              <ExamTag exam="GMAT" />
-              <span className="font-mono text-xs text-muted-foreground">Focus Edition: 205-805 Scale</span>
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* CAT Box */}
+            <div className="kraft-card rounded-lg border border-rule/70 bg-card p-7 space-y-4">
+              <div className="flex items-center justify-between">
+                <ExamTag exam="CAT" />
+                <span className="font-mono text-xs text-muted-foreground">Target Exam: Nov 2026</span>
+              </div>
+              <h3 className="font-display text-2xl font-bold tracking-tight">Common Admission Test (CAT)</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Engineered for aspirants targeting IIM Ahmedabad, Bangalore, Calcutta, FMS, and top Indian institutions. Section-level performance diagnostics across VARC, DILR, and QA mapped to all-India percentiles.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <Chip>VARC (24 Qs · 40 min)</Chip>
+                <Chip>DILR (20 Qs · 40 min)</Chip>
+                <Chip>QA (22 Qs · 40 min)</Chip>
+                <Chip>198 Raw Marks Scale</Chip>
+                <Chip>99.5+ %ile Targets</Chip>
+              </div>
             </div>
-            <h3 className="font-display text-2xl font-bold tracking-tight">GMAT Focus Edition</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Tailored preparation workflows for ISB, INSEAD, and global business schools. Separate scaled score interpretations for Quantitative Reasoning, Verbal Reasoning, and Data Insights without mixing scoring standards.
-            </p>
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Chip>Quantitative (21 Qs)</Chip>
-              <Chip>Verbal (23 Qs)</Chip>
-              <Chip>Data Insights (20 Qs)</Chip>
-              <Chip>Equal Section Weighting</Chip>
+
+            {/* GMAT Box */}
+            <div className="kraft-card rounded-lg border border-rule/70 bg-card p-7 space-y-4">
+              <div className="flex items-center justify-between">
+                <ExamTag exam="GMAT" />
+                <span className="font-mono text-xs text-muted-foreground">Focus Edition: 205-805 Scale</span>
+              </div>
+              <h3 className="font-display text-2xl font-bold tracking-tight">GMAT Focus Edition</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Tailored for aspirants targeting ISB PGP, INSEAD, London Business School, and global MBA programs. Distinct scaled score tracking across Quantitative Reasoning, Verbal Reasoning, and Data Insights.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <Chip>Quantitative (21 Qs · 45 min)</Chip>
+                <Chip>Verbal (23 Qs · 45 min)</Chip>
+                <Chip>Data Insights (20 Qs · 45 min)</Chip>
+                <Chip>Equal Section Weighting</Chip>
+                <Chip>705+ Elite Tier</Chip>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Institutional Modules Grid */}
+        <div className="mt-20">
+          <div className="mb-8">
+            <span className="eyebrow">End-to-End Operational Surface</span>
+            <h2 className="font-display text-3xl font-bold tracking-tight mt-1">10 Dedicated Coaching Operations Modules</h2>
+            <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+              From lead capture and batch scheduling to mock percentiles, fee instalments, and B-school call letters.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Admissions CRM & Leads", desc: "Multi-channel enquiry capture, counsellor routing, SLA follow-up queues, and 1-click enrolment conversion." },
+              { title: "9-Phase Journey Kanban", desc: "Interactive linear preparation phases with MongoDB timeline logging and candidate velocity alerts." },
+              { title: "Courses & Batches", desc: "Curriculum pacing, batch capacity management, timetable scheduling, and faculty instructor assignments." },
+              { title: "Mock Test Analytics", desc: "Proctored assessment scoring, raw-to-percentile projections, section accuracy, and negative penalty audits." },
+              { title: "Biometric & Class Attendance", desc: "Session-by-session student presence, disengagement risk flags, and mentor intervention alerts." },
+              { title: "Exam Readiness Scorecard", desc: "Composite readiness index calculated from syllabus completion, mock averages, and attendance consistency." },
+              { title: "B-School Application Tracker", desc: "IIM composite score calculators, ISB deadline calendars, interview GD/PI prep, and verified admits." },
+              { title: "Fee & Instalment Ledgers", desc: "Custom agreed fees, instalment schedules, automated overdue reminders, and printable receipts in INR." },
+              { title: "Institutional Intelligence", desc: "Real-time cohort attrition metrics, faculty satisfaction, mock score improvements, and revenue reports." },
+            ].map((m, idx) => (
+              <div key={idx} className="kraft-card rounded-lg border border-rule/70 bg-card p-5 space-y-2 hover:border-primary/50 transition-all">
+                <div className="font-mono text-xs font-semibold text-primary">0{idx + 1}</div>
+                <div className="font-display text-lg font-bold tracking-tight text-foreground">{m.title}</div>
+                <div className="text-xs text-muted-foreground leading-relaxed">{m.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Live Operational Metrics Showcase */}
-        <div className="mt-16 rounded-md border border-rule bg-card p-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rule pb-5">
+        <div className="mt-20 rounded-lg border border-rule/80 bg-card p-8">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rule/80 pb-5">
             <div>
               <p className="eyebrow">Institutional Source of Truth</p>
               <h3 className="font-display text-2xl font-bold tracking-tight mt-1">Operational Metrics Calculated Live</h3>
             </div>
-            <Button asChild size="sm" variant="outline">
-              <Link to="/app">Explore Live Overview</Link>
+            <Button asChild size="sm" variant="outline" className="text-xs font-mono">
+              <Link to="/app">Explore Live Workspace →</Link>
             </Button>
           </div>
 
           <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <div className="border-l border-rule pl-4">
+            <div className="border-l-2 border-primary/40 pl-4">
               <div className="eyebrow">Enquiry Pipeline</div>
-              <div className="tabular mt-2 text-3xl font-medium text-primary">40+ Records</div>
+              <div className="tabular mt-2 text-3xl font-bold text-primary">40+ Records</div>
               <div className="mt-1 text-xs text-muted-foreground font-mono">Real MongoDB persistence</div>
             </div>
-            <div className="border-l border-rule pl-4">
+            <div className="border-l-2 border-rule pl-4">
               <div className="eyebrow">Enrolled Cohort</div>
-              <div className="tabular mt-2 text-3xl font-medium">26 Students</div>
+              <div className="tabular mt-2 text-3xl font-bold">26 Students</div>
               <div className="mt-1 text-xs text-muted-foreground font-mono">CAT & GMAT batches</div>
             </div>
-            <div className="border-l border-rule pl-4">
+            <div className="border-l-2 border-success/40 pl-4">
               <div className="eyebrow">Avg Mock Accuracy</div>
-              <div className="tabular mt-2 text-3xl font-medium text-success">84.2%</div>
+              <div className="tabular mt-2 text-3xl font-bold text-success">84.2%</div>
               <div className="mt-1 text-xs text-muted-foreground font-mono">Proctored assessments</div>
             </div>
-            <div className="border-l border-rule pl-4">
+            <div className="border-l-2 border-warning/40 pl-4">
               <div className="eyebrow">IIM Shortlists</div>
-              <div className="tabular mt-2 text-3xl font-medium text-warning">48 Verified</div>
+              <div className="tabular mt-2 text-3xl font-bold text-warning">48 Verified</div>
               <div className="mt-1 text-xs text-muted-foreground font-mono">Call letters logged</div>
             </div>
           </div>
@@ -198,15 +241,18 @@ function Landing() {
       <footer className="border-t border-rule bg-ink text-ink-foreground py-12">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-6">
           <div>
-            <div className="font-mono text-sm tracking-[0.2em] font-medium">KRAFT</div>
+            <div className="font-mono text-sm tracking-[0.25em] font-semibold text-primary">KRAFT</div>
             <p className="mt-1 text-xs text-ink-foreground/60 font-mono">
               Engineered Aesthetics · Student Journey Manager
             </p>
           </div>
-          <div className="flex items-center gap-6 text-xs text-ink-foreground/70 font-mono">
+          <div className="flex flex-wrap items-center gap-6 text-xs text-ink-foreground/70 font-mono">
             <span>CAT · GMAT Operations</span>
             <span>Asia/Kolkata (IST)</span>
             <span>INR (₹) Ledger</span>
+            <Link to="/auth" className="text-primary hover:underline">
+              Enter Workspace →
+            </Link>
           </div>
         </div>
       </footer>

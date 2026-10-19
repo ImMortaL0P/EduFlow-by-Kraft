@@ -124,6 +124,22 @@ html.lenis, html.lenis body {
   overflow: hidden;
 }
 
+/* Custom Sleek Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.8 0.02 85);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.65 0.03 85);
+}
+
 @utility font-display {
   font-family: var(--font-display);
   font-weight: 700;
@@ -158,6 +174,7 @@ html.lenis, html.lenis body {
   color: var(--color-foreground);
   background-color: var(--color-card);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
 }
 
 .kraft-chip:hover {
@@ -166,21 +183,38 @@ html.lenis, html.lenis body {
   transform: translateY(-1px);
 }
 
+.kraft-chip:active {
+  transform: scale(0.97);
+}
+
 /* Smooth Interactive Card Transitions */
 .kraft-card {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
 }
 
 .kraft-card:hover {
-  border-color: oklch(0.75 0.03 85);
-  box-shadow: 0 4px 20px -4px rgba(23, 23, 26, 0.06);
+  border-color: oklch(0.72 0.03 85);
+  box-shadow: 0 6px 24px -4px rgba(23, 23, 26, 0.07);
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(248, 246, 242, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Tactile button active feedback */
+button:active:not(:disabled) {
+  transform: scale(0.985);
+  transition: transform 0.1s ease;
 }
 
 /* Subtle Animated Fade-In */
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.99);
+    transform: translateY(8px) scale(0.995);
   }
   to {
     opacity: 1;
