@@ -4,7 +4,7 @@ A Complete CAT & GMAT Coaching CRM, Student Success Platform and Institutional A
 ## Visual Design Reference
 Strictly aligned with [Kraft Studios](https://kraftstudios.site) design language:
 - **Palette:** Sand (`#F4F1EA`), Vermilion (`#C2412D`), Ink (`#17171A`), Slate (`#6B7A85`), and Stone (`#C9BFA8`).
-- **Typography:** Instrument Serif (display), IBM Plex Sans (interface), and IBM Plex Mono (tabular data).
+- **Typography:** Outfit & Plus Jakarta Sans (display), IBM Plex Sans (interface), and IBM Plex Mono (tabular data).
 - **Motion:** Lenis smooth scrolling and subtle transition choreography.
 
 ## Technology Stack
@@ -18,4 +18,4 @@ Strictly aligned with [Kraft Studios](https://kraftstudios.site) design language
 npm install
 npm run dev
 ```
-Local dev server starts on [http://localhost:8080/](http://localhost:8080/).
+Local dev server starts on [http://localhost:6060/](http://localhost:6060/).

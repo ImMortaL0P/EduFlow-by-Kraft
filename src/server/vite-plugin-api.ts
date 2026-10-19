@@ -11,7 +11,7 @@ export function apiMiddlewarePlugin(): Plugin {
         }
 
         try {
-          const host = req.headers.host || "localhost:8080";
+          const host = req.headers.host || "localhost:6060";
           const url = new URL(reqUrl, `http://${host}`);
           const method = req.method || "GET";
 

@@ -18,5 +18,11 @@ export default defineConfig({
   },
   vite: {
     plugins: [apiMiddlewarePlugin()],
+    server: {
+      port: 6060,
+    },
+    preview: {
+      port: 6060,
+    },
   },
 });
