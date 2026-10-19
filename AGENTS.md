@@ -1,14 +1,14 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# KRAFT Student Journey Manager
 
-- Management app lives under `/app/*` inside the `_authenticated` layout; unbuilt modules route through `app.m.$section.tsx`. Why: one gated shell, sidebar always resolves.
-- Sensitive operations (lead conversion, stage moves) are SECURITY DEFINER SQL functions with role checks; roles live only in `user_roles`. Why: authorization enforced in the database, not the UI.
-- Sidebar visibility comes from `SECTION_ACCESS` in `src/lib/roles.ts`, which is UX only; RLS is the boundary.
+## Architecture & Technology Stack
+- **Framework:** TanStack Start (Vite + React 19 + TypeScript)
+- **Database:** MongoDB Atlas (Database: `eduflow` on multi-cloud cluster)
+- **Authentication:** Custom JWT sessions with bcryptjs password hashing and instant login shortcuts
+- **Design System:** Kraft Studios visual design (`kraftstudios.site`) with Lenis smooth scroll, warm sand, vermilion, ink, and slate palette
+- **Typography:** IBM Plex Sans (UI), IBM Plex Mono (data/tabular), Instrument Serif (display headings)
+
+## Workspace Navigation & Access Control
+- Management application lives under `/app/*` inside the `_authenticated` layout.
+- Modular sections route through `app.m.$section.tsx` rendering dedicated modules (`courses`, `academics`, `tests`, `attendance`, `readiness`, `applications`, `fees`, `analytics`, `notifications`, `settings`).
+- Sensitive operations (`convert_lead`, `move_student_stage`) are verified on the server in `src/server/rpc.ts`.
+- Sidebar visibility is managed via `SECTION_ACCESS` in `src/lib/roles.ts`.

@@ -1,29 +1,21 @@
-# Welcome to your Lovable project
+# KRAFT Student Journey Manager
+A Complete CAT & GMAT Coaching CRM, Student Success Platform and Institutional Analytics System.
 
-This project was built with [Lovable](https://lovable.dev).
+## Visual Design Reference
+Strictly aligned with [Kraft Studios](https://kraftstudios.site) design language:
+- **Palette:** Sand (`#F4F1EA`), Vermilion (`#C2412D`), Ink (`#17171A`), Slate (`#6B7A85`), and Stone (`#C9BFA8`).
+- **Typography:** Instrument Serif (display), IBM Plex Sans (interface), and IBM Plex Mono (tabular data).
+- **Motion:** Lenis smooth scrolling and subtle transition choreography.
 
-## Build with Lovable
-
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+## Technology Stack
+- **Frontend & App:** React 19, TanStack Start, TanStack Router & React Query, Tailwind CSS v4.
+- **Backend & Database:** MongoDB Atlas cluster (`eduflow` database).
+- **Authentication:** Independent JWT session auth with instant demo logins (`admin@kraft.edu` / `Admin@123456`).
+- **Completely Independent:** Zero proprietary runtime dependencies.
 
 ## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+Local dev server starts on [http://localhost:8080/](http://localhost:8080/).

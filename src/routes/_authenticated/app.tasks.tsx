@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { PageHeader, Panel, Empty, Tag } from "@/components/kraft";
+import { PageHeader, Panel, Empty, Tag, Kpi } from "@/components/kraft";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fmtDate, isOverdue } from "@/lib/format";
@@ -24,6 +24,12 @@ function TasksPage() {
     queryKey: ["tasks"],
     queryFn: async () => (await supabase.from("tasks").select("*, leads(full_name), students(full_name)").order("due_date")).data ?? [],
   });
+
+  const myTasksCount = data.filter((t) => t.status === "open" && (t.assigned_to === me?.id || !t.assigned_to)).length;
+  const overdueCount = data.filter((t) => t.status === "open" && isOverdue(t.due_date)).length;
+  const openCount = data.filter((t) => t.status === "open").length;
+  const doneCount = data.filter((t) => t.status === "done").length;
+
   const rows = data.filter((t) =>
     tab === "done" ? t.status === "done" : t.status === "open" && (tab === "all" || (tab === "overdue" ? isOverdue(t.due_date) : t.assigned_to === me?.id || !t.assigned_to)),
   );
@@ -47,35 +53,98 @@ function TasksPage() {
   }
 
   return (
-    <div>
-      <PageHeader eyebrow="Operations" title="Tasks & Follow-ups" description="Your follow-ups, calls and reminders, with overdue items surfaced first." />
+    <div className="space-y-6">
+      <PageHeader
+        eyebrow="Operations & Cadence"
+        title="Tasks & Follow-ups"
+        description="Daily follow-ups, diagnostic debriefs, document verifications and reminder queues."
+      />
+
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Kpi label="My pending tasks" value={myTasksCount} hint="Assigned to your queue" />
+        <Kpi label="Overdue follow-ups" value={overdueCount} tone={overdueCount > 0 ? "warning" : "default"} hint="Breached SLA" />
+        <Kpi label="Total open tasks" value={openCount} tone="primary" hint="Institution wide" />
+        <Kpi label="Completed" value={doneCount} hint="Resolved tasks" />
+      </div>
+
       <Panel>
-        <form onSubmit={add} className="mb-4 flex flex-wrap gap-2">
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="New task…" className="max-w-sm" />
-          <Input type="date" value={due} onChange={(e) => setDue(e.target.value)} className="w-40" />
-          <Button type="submit" variant="outline">Add</Button>
+        <form onSubmit={add} className="mb-5 flex flex-wrap items-center gap-2">
+          <Input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Add follow-up, interview prep task, or mock debrief…"
+            className="h-9 max-w-md flex-1"
+          />
+          <Input
+            type="date"
+            value={due}
+            onChange={(e) => setDue(e.target.value)}
+            className="h-9 w-40 font-mono text-xs"
+          />
+          <Button type="submit" className="h-9 shadow-sm">Add task</Button>
         </form>
-        <div className="mb-4 flex gap-1">
+
+        <div className="mb-4 flex flex-wrap gap-1.5 border-b border-border/50 pb-3">
           {(["mine", "overdue", "all", "done"] as const).map((t) => (
-            <Button key={t} size="sm" variant={tab === t ? "default" : "ghost"} onClick={() => setTab(t)}>{{ mine: "My tasks", overdue: "Overdue", all: "All open", done: "Completed" }[t]}</Button>
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              className={`rounded-md px-3 py-1.5 text-xs font-medium transition-all ${
+                tab === t
+                  ? "bg-ink text-background shadow-sm"
+                  : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              {{ mine: `My Tasks (${myTasksCount})`, overdue: `Overdue (${overdueCount})`, all: `All Open (${openCount})`, done: `Completed (${doneCount})` }[t]}
+            </button>
           ))}
         </div>
-        {isLoading ? null : rows.length === 0 ? <Empty title="All clear" hint="No tasks in this view." /> : (
-          <ul className="divide-y">
+
+        {isLoading ? (
+          <div className="py-12 text-center text-sm text-muted-foreground">Loading tasks…</div>
+        ) : rows.length === 0 ? (
+          <Empty title="All clear" hint="No tasks found matching this view." />
+        ) : (
+          <ul className="divide-y divide-border/40">
             {rows.map((t) => (
-              <li key={t.id} className="flex flex-wrap items-center gap-3 py-2.5">
-                {t.status === "open" && <input type="checkbox" className="size-4 accent-primary" onChange={() => complete(t.id)} aria-label="Complete" />}
+              <li key={t.id} className="flex flex-wrap items-center gap-3 py-3 px-1 transition-colors hover:bg-muted/30 rounded-md">
+                {t.status === "open" && (
+                  <input
+                    type="checkbox"
+                    className="size-4 rounded border-border accent-primary cursor-pointer"
+                    onChange={() => complete(t.id)}
+                    aria-label="Mark task complete"
+                  />
+                )}
                 <div className="min-w-0 flex-1">
-                  <div className={`text-sm ${t.status === "done" ? "text-muted-foreground line-through" : ""}`}>{t.title}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {t.task_type}
-                    {t.leads?.full_name && <> · <Link to="/app/leads" className="hover:text-primary">{t.leads.full_name}</Link></>}
-                    {t.students?.full_name && t.student_id && <> · <Link to="/app/students/$id" params={{ id: t.student_id }} className="hover:text-primary">{t.students.full_name}</Link></>}
+                  <div className={`text-sm font-medium ${t.status === "done" ? "text-muted-foreground line-through" : "text-foreground"}`}>
+                    {t.title}
+                  </div>
+                  <div className="font-mono text-xs text-muted-foreground mt-0.5">
+                    <span className="uppercase text-[10px] tracking-wider text-muted-foreground/80">{t.task_type || "Follow-up"}</span>
+                    {t.leads?.full_name && (
+                      <> · Enquiry: <Link to="/app/leads" className="font-medium text-foreground hover:text-primary transition-colors">{t.leads.full_name}</Link></>
+                    )}
+                    {t.students?.full_name && t.student_id && (
+                      <> · Student: <Link to="/app/students/$id" params={{ id: t.student_id }} className="font-medium text-foreground hover:text-primary transition-colors">{t.students.full_name}</Link></>
+                    )}
                   </div>
                 </div>
                 {t.priority === "high" && <Tag tone="primary">High</Tag>}
                 {t.status === "open" && isOverdue(t.due_date) && <Tag tone="warning">Overdue</Tag>}
-                {t.status === "open" ? <Input type="date" className="h-8 w-36 text-xs" value={t.due_date} onChange={(e) => e.target.value && reschedule(t.id, e.target.value)} /> : <span className="tabular text-xs text-muted-foreground">{fmtDate(t.completed_at)}</span>}
+                {t.status === "open" ? (
+                  <Input
+                    type="date"
+                    className="h-8 w-36 font-mono text-xs"
+                    value={t.due_date}
+                    onChange={(e) => e.target.value && reschedule(t.id, e.target.value)}
+                  />
+                ) : (
+                  <span className="font-mono text-xs text-muted-foreground tabular">
+                    Completed {fmtDate(t.completed_at)}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

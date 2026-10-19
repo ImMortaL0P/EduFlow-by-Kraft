@@ -1,11 +1,9 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  LayoutDashboard, Inbox, Route as RouteIcon, Users, MessagesSquare, BookOpen, GraduationCap, LineChart,
-  CalendarCheck, ListTodo, Target, School, Wallet, BarChart3, UserCog, Bell, Settings, PanelLeft, LogOut, Search, Plus,
-} from "lucide-react";
+import { PanelLeft, LogOut, Search, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { canAccess, ROLE_LABELS, useMyRoles, useSession } from "@/lib/roles";
+import { NAV } from "@/lib/nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -14,26 +12,6 @@ export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({ meta: [{ title: "Workspace — KRAFT" }, { name: "robots", content: "noindex" }] }),
   component: AppLayout,
 });
-
-export const NAV = [
-  { key: "overview", label: "Overview", to: "/app", icon: LayoutDashboard },
-  { key: "leads", label: "Enquiries & Leads", to: "/app/leads", icon: Inbox },
-  { key: "journey", label: "Student Journey", to: "/app/journey", icon: RouteIcon },
-  { key: "students", label: "Students", to: "/app/students", icon: Users },
-  { key: "counselling", label: "Counselling", to: "/app/counselling", icon: MessagesSquare },
-  { key: "courses", label: "Courses & Batches", to: "/app/m/courses", icon: BookOpen },
-  { key: "academics", label: "Academic Operations", to: "/app/m/academics", icon: GraduationCap },
-  { key: "tests", label: "Tests & Performance", to: "/app/m/tests", icon: LineChart },
-  { key: "attendance", label: "Attendance", to: "/app/m/attendance", icon: CalendarCheck },
-  { key: "tasks", label: "Tasks & Follow-ups", to: "/app/tasks", icon: ListTodo },
-  { key: "readiness", label: "Exam Readiness", to: "/app/m/readiness", icon: Target },
-  { key: "applications", label: "B-School Applications", to: "/app/m/applications", icon: School },
-  { key: "fees", label: "Fees & Payments", to: "/app/m/fees", icon: Wallet },
-  { key: "analytics", label: "Analytics & Reports", to: "/app/m/analytics", icon: BarChart3 },
-  { key: "team", label: "Team", to: "/app/team", icon: UserCog },
-  { key: "notifications", label: "Notifications", to: "/app/m/notifications", icon: Bell },
-  { key: "settings", label: "Settings", to: "/app/m/settings", icon: Settings },
-] as const;
 
 function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
@@ -83,20 +61,32 @@ function AppLayout() {
   );
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <aside className={cn("sticky top-0 hidden h-screen shrink-0 transition-[width] md:block", collapsed ? "w-14" : "w-60")}>{sidebar}</aside>
+    <div className="flex min-h-screen bg-background text-foreground">
+      <aside className={cn("sticky top-0 hidden h-screen shrink-0 transition-[width] md:block", collapsed ? "w-14" : "w-60")}>
+        {sidebar}
+      </aside>
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 md:hidden" onClick={() => setMobileOpen(false)}>
-          <div className="h-full w-64" onClick={(e) => e.stopPropagation()}>{sidebar}</div>
+        <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden animate-in fade-in duration-200" onClick={() => setMobileOpen(false)}>
+          <div className="h-full w-64 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            {sidebar}
+          </div>
         </div>
       )}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur">
-          <Button variant="ghost" size="icon" className="hidden md:inline-flex" onClick={() => setCollapsed(!collapsed)} aria-label="Toggle sidebar"><PanelLeft /></Button>
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(true)} aria-label="Open menu"><PanelLeft /></Button>
-          <div className="min-w-0">
-            <div className="eyebrow">Workspace</div>
-            <div className="truncate text-sm font-medium">{current?.label ?? "Workspace"}</div>
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border/70 bg-background/90 px-4 backdrop-blur-md">
+          <Button variant="ghost" size="icon" className="hidden md:inline-flex text-muted-foreground hover:text-foreground" onClick={() => setCollapsed(!collapsed)} aria-label="Toggle sidebar">
+            <PanelLeft className="size-4" />
+          </Button>
+          <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:text-foreground" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+            <PanelLeft className="size-4" />
+          </Button>
+          <div className="min-w-0 flex items-center gap-2">
+            <Link to="/app" className="eyebrow hover:text-primary transition-colors hidden sm:inline">Workspace</Link>
+            <span className="text-muted-foreground/40 hidden sm:inline">/</span>
+            <div className="truncate text-sm font-medium text-foreground">{current?.label ?? "Workspace"}</div>
+            <span className="hidden lg:inline-flex ml-2 items-center rounded-full bg-muted/60 px-2 py-0.5 font-mono text-[10px] text-muted-foreground border border-border/40">
+              Cycle 2025–26
+            </span>
           </div>
           <form
             className="ml-auto hidden max-w-xs flex-1 items-center sm:flex"
@@ -104,18 +94,36 @@ function AppLayout() {
           >
             <div className="relative w-full">
               <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-              <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search students…" className="h-9 pl-8" />
+              <Input
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="Search students, roll no, city…"
+                className="h-9 pl-8 text-xs bg-muted/30 focus-visible:bg-background"
+              />
             </div>
           </form>
           {canAccess(roles, "leads") && (
-            <Button size="sm" asChild><Link to="/app/leads" search={{ new: true }}><Plus /> <span className="hidden sm:inline">New enquiry</span></Link></Button>
+            <Button size="sm" asChild className="gap-1.5 shadow-sm">
+              <Link to="/app/leads" search={{ new: true }}>
+                <Plus className="size-3.5" /> <span className="hidden sm:inline">New enquiry</span>
+              </Link>
+            </Button>
           )}
-          <Button variant="ghost" size="icon" aria-label="Sign out" onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/auth" }); }}><LogOut /></Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Sign out"
+            title="Sign out"
+            className="text-muted-foreground hover:text-destructive transition-colors"
+            onClick={async () => { await supabase.auth.signOut(); navigate({ to: "/auth" }); }}
+          >
+            <LogOut className="size-4" />
+          </Button>
         </header>
         <main className="flex-1 p-4 md:p-8">
           {!isLoading && roles.length === 0 ? (
             <div className="mx-auto max-w-md py-24 text-center">
-              <h1 className="font-display text-4xl">Awaiting access</h1>
+              <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">Awaiting access</h1>
               <p className="mt-3 text-muted-foreground">Your account has no role yet. Ask a Super Administrator to assign one from the Team page.</p>
             </div>
           ) : (

@@ -11,7 +11,7 @@
 @theme inline {
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-display: "Instrument Serif", Georgia, serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 2px);
   --radius-md: var(--radius);
   --radius-lg: calc(var(--radius) + 2px);
@@ -57,7 +57,7 @@
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0.375rem;
   --background: oklch(0.962 0.009 85);      /* sand #F4F1EA */
   --foreground: oklch(0.205 0.006 285);     /* ink #17171A */
   --card: oklch(0.977 0.005 85);            /* #F8F6F2 */
@@ -87,13 +87,13 @@
   --chart-3: oklch(0.55 0.02 235);
   --chart-4: oklch(0.8 0.03 85);
   --chart-5: oklch(0.72 0.14 75);
-  --sidebar: oklch(0.205 0.006 285);
-  --sidebar-foreground: oklch(0.85 0.012 85);
+  --sidebar: oklch(0.18 0.006 285);
+  --sidebar-foreground: oklch(0.88 0.012 85);
   --sidebar-primary: oklch(0.56 0.17 33);
   --sidebar-primary-foreground: oklch(0.977 0.005 85);
-  --sidebar-accent: oklch(0.27 0.008 285);
+  --sidebar-accent: oklch(0.25 0.008 285);
   --sidebar-accent-foreground: oklch(0.977 0.005 85);
-  --sidebar-border: oklch(0.3 0.008 285);
+  --sidebar-border: oklch(0.28 0.008 285);
   --sidebar-ring: oklch(0.56 0.17 33);
 }
 
@@ -106,24 +106,88 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @utility font-display {
   font-family: var(--font-display);
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 @utility eyebrow {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--color-muted-foreground);
+  font-weight: 500;
 }
 
 @utility tabular {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+}
+
+/* Kraft Studios Chip Style */
+.kraft-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-family: var(--font-mono);
+  color: var(--color-foreground);
+  background-color: var(--color-card);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kraft-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+/* Smooth Interactive Card Transitions */
+.kraft-card {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+}
+
+.kraft-card:hover {
+  border-color: oklch(0.75 0.03 85);
+  box-shadow: 0 4px 20px -4px rgba(23, 23, 26, 0.06);
+}
+
+/* Subtle Animated Fade-In */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
