@@ -12,7 +12,7 @@ export const Route = createFileRoute("/_authenticated/app/students/")({
   validateSearch: (s: Record<string, unknown>): { q?: string } => ({
     q: typeof s["q"] === "string" ? s["q"] : undefined,
   }),
-  head: () => ({ meta: [{ title: "Students Directory — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Students Directory — TrajectX" }] }),
   component: StudentsPage,
 });
 

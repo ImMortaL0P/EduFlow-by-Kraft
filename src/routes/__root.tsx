@@ -64,7 +64,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "KRAFT Student Journey Manager" },
+      { title: "TrajectX — Student Journey Manager" },
       { name: "description", content: "CAT & GMAT coaching CRM, student success and analytics platform." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

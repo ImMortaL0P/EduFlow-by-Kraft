@@ -10,10 +10,10 @@ import { Sparkles } from "lucide-react";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — KRAFT Student Journey Manager" },
-      { name: "description", content: "Sign in to the KRAFT CAT & GMAT coaching workspace." },
-      { property: "og:title", content: "Sign in — KRAFT" },
-      { property: "og:description", content: "Access the KRAFT Student Journey Manager." },
+      { title: "Sign in — TrajectX Student Journey Manager" },
+      { name: "description", content: "Sign in to the TrajectX CAT & GMAT coaching workspace." },
+      { property: "og:title", content: "Sign in — TrajectX" },
+      { property: "og:description", content: "Access the TrajectX Student Journey Manager." },
     ],
   }),
   component: AuthPage,
@@ -83,7 +83,7 @@ function AuthPage() {
   return (
     <div className="grid min-h-screen md:grid-cols-2">
       <aside className="hidden flex-col justify-between bg-ink p-10 text-ink-foreground md:flex">
-        <Link to="/" className="font-mono text-sm tracking-[0.2em]">KRAFT</Link>
+        <Link to="/" className="font-mono text-sm tracking-[0.2em]">TRAJECTX</Link>
         <blockquote className="font-display text-4xl font-extrabold leading-tight tracking-tight">
           One record for every aspirant — <em className="text-primary not-italic">enquiry to admit.</em>
         </blockquote>

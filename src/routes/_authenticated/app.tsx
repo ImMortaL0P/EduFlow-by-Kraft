@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
-import { PanelLeft, LogOut, Search, Plus, Bell, ExternalLink, User } from "lucide-react";
+import { PanelLeft, LogOut, Search, Plus, Bell, ExternalLink, User, Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { canAccess, ROLE_LABELS, useMyRoles, useSession } from "@/lib/roles";
 import { NAV } from "@/lib/nav";
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/app")({
-  head: () => ({ meta: [{ title: "Workspace — KRAFT" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Workspace — TrajectX" }, { name: "robots", content: "noindex" }] }),
   component: AppLayout,
 });
 
@@ -31,7 +31,7 @@ function AppLayout() {
       <div className="flex h-14 items-center justify-between border-b border-sidebar-border px-4">
         <Link to="/" className="flex items-center gap-2 group">
           <span className="font-mono text-sm font-semibold tracking-[0.25em] text-sidebar-accent-foreground group-hover:text-primary transition-colors">
-            {collapsed ? "K" : "KRAFT"}
+            {collapsed ? "TX" : "TRAJECTX"}
           </span>
           {!collapsed && (
             <span className="text-[10px] uppercase font-mono tracking-widest text-sidebar-foreground/50">
@@ -39,15 +39,26 @@ function AppLayout() {
             </span>
           )}
         </Link>
-        {!collapsed && (
-          <Link
-            to="/"
-            title="View Public Website"
-            className="text-sidebar-foreground/40 hover:text-sidebar-accent-foreground transition-colors p-1"
+        <div className="flex items-center gap-1">
+          {!collapsed && (
+            <Link
+              to="/"
+              title="View Public Website"
+              className="text-sidebar-foreground/40 hover:text-sidebar-accent-foreground transition-colors p-1"
+            >
+              <ExternalLink className="size-3.5" />
+            </Link>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden size-8 text-sidebar-foreground/60 hover:text-sidebar-accent-foreground hover:bg-sidebar-accent"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close sidebar"
           >
-            <ExternalLink className="size-3.5" />
-          </Link>
-        )}
+            <X className="size-4" />
+          </Button>
+        </div>
       </div>
 
       <ul className="flex-1 space-y-1 overflow-y-auto p-2.5">
@@ -100,19 +111,41 @@ function AppLayout() {
         {sidebar}
       </aside>
       {mobileOpen && (
-        <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden animate-in fade-in duration-200" onClick={() => setMobileOpen(false)}>
-          <div className="h-full w-64 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm md:hidden animate-in fade-in duration-200"
+          onClick={() => setMobileOpen(false)}
+        >
+          <div
+            className="h-full w-68 max-w-[85vw] shadow-2xl animate-in slide-in-from-left duration-200 ease-out"
+            onClick={(e) => e.stopPropagation()}
+          >
             {sidebar}
           </div>
         </div>
       )}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border/70 bg-background/90 px-4 backdrop-blur-md">
-          <Button variant="ghost" size="icon" className="hidden md:inline-flex text-muted-foreground hover:text-foreground" onClick={() => setCollapsed(!collapsed)} aria-label="Toggle sidebar">
+          {/* Desktop collapse toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden md:inline-flex text-muted-foreground hover:text-foreground"
+            onClick={() => setCollapsed(!collapsed)}
+            aria-label="Toggle sidebar"
+          >
             <PanelLeft className="size-4" />
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden text-muted-foreground hover:text-foreground" onClick={() => setMobileOpen(true)} aria-label="Open menu">
-            <PanelLeft className="size-4" />
+
+          {/* Mobile hamburger menu toggle */}
+          <Button
+            variant="outline"
+            size="sm"
+            className="md:hidden h-8 px-2.5 gap-1.5 border-border/80 bg-background text-foreground hover:bg-muted font-mono text-xs shadow-xs"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open navigation menu"
+          >
+            <Menu className="size-4 text-primary" />
+            <span className="text-[11px] font-semibold tracking-wider uppercase">Menu</span>
           </Button>
 
           <div className="min-w-0 flex items-center gap-2">

@@ -44,7 +44,7 @@ export function FeesModule() {
         student_name: student?.full_name,
         amount: Number(amount),
         mode: paymentMode,
-        reference_no: reference || `KRAFT-TXN-${Date.now().toString().slice(-6)}`,
+        reference_no: reference || `TRAJECTX-TXN-${Date.now().toString().slice(-6)}`,
         date: new Date().toISOString().split("T")[0],
       });
       if (error) throw error;

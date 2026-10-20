@@ -265,8 +265,8 @@ export function TestsModule() {
     const sampleRows =
       activeExam === "CAT"
         ? [
-            "aarav.sharma@example.com,CAT,KRAFT SimCAT 01,Full Mock,2026-10-15,32,24,34,90,99.1 %ile,Strong QA accuracy\n",
-            "aditi.verma@example.com,CAT,KRAFT SimCAT 01,Full Mock,2026-10-15,28,18,22,68,91.4 %ile,Need DILR drill sets\n",
+            "aarav.sharma@example.com,CAT,TrajectX SimCAT 01,Full Mock,2026-10-15,32,24,34,90,99.1 %ile,Strong QA accuracy\n",
+            "aditi.verma@example.com,CAT,TrajectX SimCAT 01,Full Mock,2026-10-15,28,18,22,68,91.4 %ile,Need DILR drill sets\n",
             "rohan.banerjee@example.com,CAT,QA Sectional Drill 04,Sectional,2026-10-18,0,0,38,38,98.2 %ile,Algebra flawless\n",
           ]
         : [
@@ -278,7 +278,7 @@ export function TestsModule() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", `kraft_${activeExam.toLowerCase()}_mock_scores_template.csv`);
+    link.setAttribute("download", `trajectx_${activeExam.toLowerCase()}_mock_scores_template.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

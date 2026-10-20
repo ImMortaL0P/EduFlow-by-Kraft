@@ -10,7 +10,7 @@ import { fmtDate, isOverdue } from "@/lib/format";
 import { useSession } from "@/lib/roles";
 
 export const Route = createFileRoute("/_authenticated/app/tasks")({
-  head: () => ({ meta: [{ title: "Tasks & Follow-ups — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Tasks & Follow-ups — TrajectX" }] }),
   component: TasksPage,
 });
 

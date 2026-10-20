@@ -1,8 +1,8 @@
-# KRAFT Student Journey Manager
+# TrajectX — Student Journey Manager
 
 ## Architecture & Technology Stack
 - **Framework:** TanStack Start (Vite + React 19 + TypeScript)
-- **Database:** MongoDB Atlas (Database: `eduflow` on multi-cloud cluster)
+- **Database:** MongoDB Atlas (Database: `trajectx` on multi-cloud cluster)
 - **Authentication:** Custom JWT sessions with bcryptjs password hashing and instant login shortcuts
 - **Design System:** Kraft Studios visual design (`kraftstudios.site`) with Lenis smooth scroll, warm sand, vermilion, ink, and slate palette
 - **Typography:** IBM Plex Sans (UI), IBM Plex Mono (data/tabular), Instrument Serif (display headings)

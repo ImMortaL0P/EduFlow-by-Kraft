@@ -21,7 +21,7 @@ type LeadStatus = Database["public"]["Enums"]["lead_status"];
 
 export const Route = createFileRoute("/_authenticated/app/leads")({
   validateSearch: (s: Record<string, unknown>): { new?: boolean } => ({ new: s["new"] === true || s["new"] === "true" ? true : undefined }),
-  head: () => ({ meta: [{ title: "Enquiries & Leads — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Enquiries & Leads — TrajectX" }] }),
   component: LeadsPage,
 });
 

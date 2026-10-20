@@ -10,7 +10,7 @@ import { TrendingUp, Users, Calendar, ArrowRight, ShieldCheck, Plus, Sparkles, B
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated/app/")({
-  head: () => ({ meta: [{ title: "Overview — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Overview — TrajectX" }] }),
   component: Overview,
 });
 
@@ -86,7 +86,7 @@ function Overview() {
     <div className="space-y-6 animate-fade-in-up">
       <PageHeader
         eyebrow="Institutional Intelligence"
-        title="Today at KRAFT"
+        title="Today at TrajectX"
         description="Unified live cockpit computed directly from MongoDB Atlas enquiry records, student journeys, and daily follow-up queues."
         action={
           <div className="flex flex-wrap items-center gap-2">

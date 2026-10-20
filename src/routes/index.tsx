@@ -6,12 +6,12 @@ import { Chip, Tag, ExamTag } from "@/components/kraft";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "KRAFT Student Journey Manager — CAT & GMAT Coaching Platform" },
+      { title: "TrajectX — Student Journey Manager · CAT & GMAT Coaching Platform" },
       {
         name: "description",
         content: "Engineered student lifecycle management, admissions CRM, mock test analytics, and institutional operations for competitive management entrance prep.",
       },
-      { property: "og:title", content: "KRAFT Student Journey Manager" },
+      { property: "og:title", content: "TrajectX — Student Journey Manager" },
       {
         property: "og:description",
         content: "Every aspirant, from enquiry to admit. Designed on the Kraft Studios aesthetic.",
@@ -36,11 +36,11 @@ const STAGES = [
 function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
-      {/* Top Kraft Header */}
+      {/* Top TrajectX Header */}
       <header className="sticky top-0 z-40 border-b border-rule/60 bg-background/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-sm font-semibold tracking-[0.25em]">KRAFT</span>
+            <span className="font-mono text-sm font-semibold tracking-[0.25em]">TRAJECTX</span>
             <span className="hidden sm:inline-block h-3.5 w-px bg-rule" />
             <span className="hidden sm:inline-block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
               Student Journey Manager
@@ -69,7 +69,7 @@ function Landing() {
         <div className="max-w-4xl animate-fade-in-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-rule bg-card px-3 py-1 font-mono text-xs text-muted-foreground mb-6">
             <span className="size-1.5 rounded-full bg-primary" />
-            <span>KRAFT COACHING OPERATING SYSTEM · CAT & GMAT</span>
+            <span>TRAJECTX COACHING OPERATING SYSTEM · CAT & GMAT</span>
           </div>
 
           <h1 className="font-display text-5xl font-extrabold leading-[1.06] md:text-7xl lg:text-8xl tracking-tight text-foreground">
@@ -237,11 +237,11 @@ function Landing() {
         </div>
       </main>
 
-      {/* Kraft Footer */}
+      {/* TrajectX Footer */}
       <footer className="border-t border-rule bg-ink text-ink-foreground py-12">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 px-6">
           <div>
-            <div className="font-mono text-sm tracking-[0.25em] font-semibold text-primary">KRAFT</div>
+            <div className="font-mono text-sm tracking-[0.25em] font-semibold text-primary">TRAJECTX</div>
             <p className="mt-1 text-xs text-ink-foreground/60 font-mono">
               Engineered Aesthetics · Student Journey Manager
             </p>

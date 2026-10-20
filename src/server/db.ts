@@ -14,8 +14,9 @@ function getDirectUri(srvUri: string): string | null {
     const credsMatch = srvUri.match(/\/\/([^@]+)@/);
     if (!credsMatch) return null;
     const creds = credsMatch[1];
+    const dbName = process.env.MONGODB_DB || "trajectx";
     if (srvUri.includes("brushbackend.l3ulyho.mongodb.net")) {
-      return `mongodb://${creds}@ac-igeo8hh-shard-00-00.l3ulyho.mongodb.net:27017,ac-igeo8hh-shard-00-01.l3ulyho.mongodb.net:27017,ac-igeo8hh-shard-00-02.l3ulyho.mongodb.net:27017/eduflow?ssl=true&replicaSet=atlas-4qt688-shard-0&authSource=admin&retryWrites=true&w=majority`;
+      return `mongodb://${creds}@ac-igeo8hh-shard-00-00.l3ulyho.mongodb.net:27017,ac-igeo8hh-shard-00-01.l3ulyho.mongodb.net:27017,ac-igeo8hh-shard-00-02.l3ulyho.mongodb.net:27017/${dbName}?ssl=true&replicaSet=atlas-4qt688-shard-0&authSource=admin&retryWrites=true&w=majority`;
     }
   } catch {}
   return null;
@@ -26,6 +27,8 @@ export async function getDb(): Promise<Db> {
   if (!uri) {
     throw new Error("MONGODB_URI is not set in environment");
   }
+
+  const targetDbName = process.env.MONGODB_DB || "trajectx";
 
   // Prefer direct multi-shard URI if available to avoid DNS SRV resolution failures (EBADRESP/ECONNREFUSED)
   const directUri = getDirectUri(uri);
@@ -40,7 +43,7 @@ export async function getDb(): Promise<Db> {
       });
       await c.connect();
       client = c;
-      db = client.db("eduflow");
+      db = client.db(targetDbName);
       return db;
     } catch (err: any) {
       lastError = err;

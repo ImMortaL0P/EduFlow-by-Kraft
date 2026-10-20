@@ -7,7 +7,7 @@ import { Settings, ShieldCheck, Database, Globe, Sliders } from "lucide-react";
 import { toast } from "sonner";
 
 export function SettingsModule() {
-  const [instName, setInstName] = useState("KRAFT Student Journey Manager");
+  const [instName, setInstName] = useState("TrajectX Student Journey Manager");
   const [timezone, setTimezone] = useState("Asia/Kolkata (IST)");
   const [currency, setCurrency] = useState("INR — Indian Rupee (₹)");
   const [academicCycle, setAcademicCycle] = useState("2026-2027");
@@ -32,7 +32,7 @@ export function SettingsModule() {
       />
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <Kpi label="Database Host" value="MongoDB Atlas" hint="Cluster: brushbackend (eduflow)" tone="primary" />
+        <Kpi label="Database Host" value="MongoDB Atlas" hint="Cluster: brushbackend (trajectx)" tone="primary" />
         <Kpi label="System Timezone" value="Asia/Kolkata" hint="Indian Standard Time (UTC+5:30)" />
         <Kpi label="Primary Currency" value="INR (₹)" hint="Standard fee ledger format" />
         <Kpi label="Active Cycle" value={academicCycle} hint="Admissions & batch intake" tone="warning" />
@@ -116,7 +116,7 @@ export function SettingsModule() {
           <div className="flex items-center justify-between py-2.5">
             <div>
               <div className="font-medium">Database Name</div>
-              <div className="text-xs font-mono text-muted-foreground">eduflow</div>
+              <div className="text-xs font-mono text-muted-foreground">trajectx</div>
             </div>
             <Tag tone="ink">Dedicated Collection Set</Tag>
           </div>

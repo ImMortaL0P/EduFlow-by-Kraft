@@ -1,4 +1,4 @@
-# KRAFT Student Journey Manager
+# TrajectX — Student Journey Manager
 A Complete CAT & GMAT Coaching CRM, Student Success Platform and Institutional Analytics System.
 
 ## Visual Design Reference
@@ -9,7 +9,7 @@ Strictly aligned with [Kraft Studios](https://kraftstudios.site) design language
 
 ## Technology Stack
 - **Frontend & App:** React 19, TanStack Start, TanStack Router & React Query, Tailwind CSS v4.
-- **Backend & Database:** MongoDB Atlas cluster (`eduflow` database).
+- **Backend & Database:** MongoDB Atlas cluster (`trajectx` database).
 - **Authentication:** Independent JWT session auth with instant demo logins (`admin@kraft.edu` / `Admin@123456`).
 - **Completely Independent:** Zero proprietary runtime dependencies.
 

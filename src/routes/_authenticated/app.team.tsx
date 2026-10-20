@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { ALL_ROLES, ROLE_LABELS, useMyRoles, useStaffDirectory, type AppRole } from "@/lib/roles";
 
 export const Route = createFileRoute("/_authenticated/app/team")({
-  head: () => ({ meta: [{ title: "Team & Permissions — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Team & Permissions — TrajectX" }] }),
   component: TeamPage,
 });
 

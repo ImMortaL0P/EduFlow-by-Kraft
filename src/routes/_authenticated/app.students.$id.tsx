@@ -37,7 +37,7 @@ import {
 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/app/students/$id")({
-  head: () => ({ meta: [{ title: "Student 360 Profile — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Student 360 Profile — TrajectX" }] }),
   component: StudentProfile,
 });
 
@@ -212,7 +212,7 @@ function StudentProfile() {
   async function handleAddPayment() {
     if (!payAmount || Number(payAmount) <= 0) return toast.error("Enter a valid payment amount");
 
-    const ref = payRef || `KRAFT-TXN-${Date.now().toString().slice(-6)}`;
+    const ref = payRef || `TRAJECTX-TXN-${Date.now().toString().slice(-6)}`;
     const { error } = await supabase.from("payments").insert({
       student_id: id,
       student_name: s.full_name,
@@ -924,7 +924,7 @@ function StudentProfile() {
                     ) : (
                       (data?.payments ?? []).map((p: any) => (
                         <tr key={p.id} className="hover:bg-muted/30 transition-colors">
-                          <td className="py-2.5 font-mono text-xs font-medium text-foreground">{p.reference_no || `KRAFT-TXN-${p.id?.slice(-6)}`}</td>
+                          <td className="py-2.5 font-mono text-xs font-medium text-foreground">{p.reference_no || `TRAJECTX-TXN-${p.id?.slice(-6)}`}</td>
                           <td className="py-2.5 font-mono text-xs text-muted-foreground">{fmtDate(p.date || p.created_at)}</td>
                           <td className="py-2.5 text-xs"><Tag tone="muted">{p.mode || "UPI"}</Tag></td>
                           <td className="py-2.5 text-right font-mono font-bold text-foreground">₹{Number(p.amount).toLocaleString("en-IN")}</td>

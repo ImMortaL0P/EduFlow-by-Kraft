@@ -1,4 +1,4 @@
-// MongoDB Atlas backed client adapter for EduFlow
+// MongoDB Atlas backed client adapter for TrajectX
 // Replaces Supabase with a high-performance MongoDB Atlas backend
 
 type AuthStateListener = (event: "SIGNED_IN" | "SIGNED_OUT" | "USER_UPDATED", session: any) => void;
@@ -7,7 +7,7 @@ const authListeners = new Set<AuthStateListener>();
 function getStoredToken(): string | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem("eduflow_session");
+    const raw = localStorage.getItem("trajectx_session") || localStorage.getItem("eduflow_session");
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     return parsed?.access_token || null;
@@ -19,7 +19,7 @@ function getStoredToken(): string | null {
 function getStoredSession(): any | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = localStorage.getItem("eduflow_session");
+    const raw = localStorage.getItem("trajectx_session") || localStorage.getItem("eduflow_session");
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -192,8 +192,8 @@ export const supabase = {
 
         const session = json.data.session;
         if (typeof window !== "undefined") {
-          localStorage.setItem("eduflow_session", JSON.stringify(session));
-          localStorage.setItem("eduflow_token", session.access_token);
+          localStorage.setItem("trajectx_session", JSON.stringify(session));
+          localStorage.setItem("trajectx_token", session.access_token);
         }
         authListeners.forEach((cb) => cb("SIGNED_IN", session));
         return { data: json.data, error: null };
@@ -226,8 +226,8 @@ export const supabase = {
 
         const session = json.data.session;
         if (typeof window !== "undefined") {
-          localStorage.setItem("eduflow_session", JSON.stringify(session));
-          localStorage.setItem("eduflow_token", session.access_token);
+          localStorage.setItem("trajectx_session", JSON.stringify(session));
+          localStorage.setItem("trajectx_token", session.access_token);
         }
         authListeners.forEach((cb) => cb("SIGNED_IN", session));
         return { data: json.data, error: null };
@@ -238,6 +238,8 @@ export const supabase = {
 
     async signOut() {
       if (typeof window !== "undefined") {
+        localStorage.removeItem("trajectx_session");
+        localStorage.removeItem("trajectx_token");
         localStorage.removeItem("eduflow_session");
         localStorage.removeItem("eduflow_token");
       }

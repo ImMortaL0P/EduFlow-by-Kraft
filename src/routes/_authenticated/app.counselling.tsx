@@ -14,7 +14,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "
 import { fmtDate, fmtDateTime, isOverdue } from "@/lib/format";
 
 export const Route = createFileRoute("/_authenticated/app/counselling")({
-  head: () => ({ meta: [{ title: "Counselling & Profile Evaluation — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Counselling & Profile Evaluation — TrajectX" }] }),
   component: CounsellingPage,
 });
 

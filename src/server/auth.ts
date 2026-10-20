@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "eduflow-secret-key-kraft-coaching-2026";
+const JWT_SECRET = process.env.JWT_SECRET || "trajectx-secret-key-kraft-coaching-2026";
+const LEGACY_JWT_SECRET = "eduflow-secret-key-kraft-coaching-2026";
 
 export interface AuthUser {
   id: string;
@@ -36,7 +37,12 @@ export function generateToken(user: AuthUser): string {
 
 export function verifyToken(token: string): AuthUser | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { sub: string; email: string; full_name?: string };
+    let decoded: { sub: string; email: string; full_name?: string } | null = null;
+    try {
+      decoded = jwt.verify(token, JWT_SECRET) as { sub: string; email: string; full_name?: string };
+    } catch {
+      decoded = jwt.verify(token, LEGACY_JWT_SECRET) as { sub: string; email: string; full_name?: string };
+    }
     return {
       id: decoded.sub,
       email: decoded.email,

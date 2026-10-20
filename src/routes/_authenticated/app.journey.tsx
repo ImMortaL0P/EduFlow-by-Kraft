@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { GripVertical, Target, Calendar, MapPin, Sparkles, ChevronLeft, ChevronRight, Search } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/app/journey")({
-  head: () => ({ meta: [{ title: "Student Journey — KRAFT" }] }),
+  head: () => ({ meta: [{ title: "Student Journey — TrajectX" }] }),
   component: JourneyBoard,
 });
 

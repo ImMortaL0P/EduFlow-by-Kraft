@@ -20,7 +20,7 @@ export const Route = createFileRoute("/_authenticated/app/m/$section")({
         ? { label: "Tests & Performance" }
         : undefined);
     return {
-      meta: [{ title: `${item?.label || "Module"} — KRAFT Student Journey Manager` }],
+      meta: [{ title: `${item?.label || "Module"} — TrajectX` }],
     };
   },
   component: ModuleRouter,

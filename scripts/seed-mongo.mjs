@@ -15,7 +15,7 @@ if (!match) {
   process.exit(1);
 }
 
-// Target database "eduflow"
+// Target database "trajectx"
 const rawUri = match[1];
 const client = new MongoClient(rawUri, { serverSelectionTimeoutMS: 10000 });
 
@@ -23,14 +23,15 @@ async function seed() {
   try {
     await client.connect();
     console.log("Connected to MongoDB Atlas!");
-    const db = client.db('eduflow');
+    const dbName = process.env.MONGODB_DB || 'trajectx';
+    const db = client.db(dbName);
 
     // Check if stages already exist
     const stageCount = await db.collection('journey_stages').countDocuments();
     if (stageCount > 0) {
-      console.log("Database 'eduflow' already seeded (found " + stageCount + " stages). Skipping seed or refreshing indexes.");
+      console.log(`Database '${dbName}' already seeded (found ` + stageCount + " stages). Skipping seed or refreshing indexes.");
     } else {
-      console.log("Seeding 'eduflow' database with initial academic structure, stages, demo leads, and students...");
+      console.log(`Seeding '${dbName}' database with initial academic structure, stages, demo leads, and students...`);
 
       // 1. STAGES
       const stageNames = [
@@ -315,7 +316,7 @@ async function seed() {
     await db.collection('journey_events').createIndex({ lead_id: 1, created_at: -1 });
     console.log("Indexes verified.");
 
-    console.log("MongoDB 'eduflow' setup complete!");
+    console.log(`MongoDB '${dbName}' setup complete!`);
   } catch (err) {
     console.error("Seed error:", err);
   } finally {
